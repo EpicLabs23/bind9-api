@@ -1,0 +1,53 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "example.local" {
+    type master;
+    file "/etc/bind/db.example.local";
+};
+
+  
+zone "newzone2.com" {
+    type master;
+    file "/etc/bind/zones/db.newzone2.com";
+};
+
+zone "toktibanao.com" {
+    type master;
+    file "/etc/bind/zones/db.toktibanao.com";
+};
+
+
+zone "alliswell.com" {
+    type master;
+    file "/etc/bind/zones/db.alliswell.com";
+};
+
+
+zone "hellounaisa.com" {
+    type master;
+    file "/etc/bind/zones/db.hellounaisa.com";
+};
+
+key "mykey" {
+	algorithm hmac-sha256;
+	secret "HVOj9bhJpBqGgPqii1hmT4uQRFIU1q8Z7h/NK/3staM=";
+};
+
+zone "muridan.com" {
+    type master;
+    file "/etc/bind/zones/muridan.com.zone";
+};
+zone "farida.com" {
+    type master;
+    file "/etc/bind/zones/farida.com.zone";
+};
+zone "kindly.com" {
+    type master;
+    file "/etc/bind/zones/kindly.com.zone";
+};

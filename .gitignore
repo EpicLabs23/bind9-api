@@ -30,3 +30,9 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+var/cache/bind
+var/lib/bind
+etc/bind/zones/db.*
+etc/bind/zones/*.zone
+tmp

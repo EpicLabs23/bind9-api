@@ -1,0 +1,6 @@
+bind9:
+  zone_file_dir: "/etc/bind/zones"
+  config_file: "/etc/bind/named.conf.local"
+  default_ttl: 3600
+server:
+  port: "8053"
