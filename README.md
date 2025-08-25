@@ -75,3 +75,29 @@ docker exec -it bind9-api bash
 cd /bind9-api/src
 air
 ```
+
+## Release
+
+1. Check if the release is ready to be published
+
+```bash
+git tag v0.1.0
+goreleaser release --snapshot --clean --snapshot-name latest
+```
+
+2. Publish the release
+
+```bash
+git push origin v0.1.0
+goreleaser release --clean
+```
+
+Additional commands:
+
+```bash
+#Delete local tag
+git tag -d v0.1.0
+
+#Delete remote tag
+git push --delete origin v0.1.0
+```
