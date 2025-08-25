@@ -23,21 +23,21 @@ tar -xzf "$TMP_DIR/$BINARY.tar.gz" -C "$TMP_DIR"
 
 # Install binary
 echo "⚙️  Installing binary to $INSTALL_DIR"
-sudo install -m 755 "$TMP_DIR/$BINARY" "$INSTALL_DIR/$BINARY"
+install -m 755 "$TMP_DIR/$BINARY" "$INSTALL_DIR/$BINARY"
 
 # Install systemd service
 if [ -f "$TMP_DIR/packaging/systemd/$BINARY.service" ]; then
     echo "⚙️  Installing systemd service"
-    sudo cp "$TMP_DIR/packaging/systemd/$BINARY.service" "$SYSTEMD_DIR/"
+    cp "$TMP_DIR/packaging/systemd/$BINARY.service" "$SYSTEMD_DIR/"
 else
     echo "⚠️  No systemd service file found in packaging/systemd/"
 fi
 
 # Reload and restart systemd service
 echo "🔄 Reloading systemd"
-sudo systemctl daemon-reload
-sudo systemctl enable "$BINARY.service"
-sudo systemctl restart "$BINARY.service"
+systemctl daemon-reload
+systemctl enable "$BINARY.service"
+systemctl restart "$BINARY.service"
 
 echo "✅ Installation complete. Service status:"
-sudo systemctl status "$BINARY.service" --no-pager
+systemctl status "$BINARY.service" --no-pager
