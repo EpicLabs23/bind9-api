@@ -1,0 +1,41 @@
+project_name: bind9-api
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: bind9-api
+    main: ./src/server # adjust if your main.go lives elsewhere
+    binary: bind9-api
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+
+archives:
+  - id: release
+    format: tar.gz
+    files:
+      - LICENSE
+      - README.md
+      - config.yml
+      - packaging/systemd/bind9-api.service
+
+nfpms:
+  - id: bind9-api
+    package_name: bind9-api
+    file_name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    vendor: "EpicLabs23"
+    homepage: "https://github.com/EpicLabs23/bind9-api"
+    maintainer: "Mahmudur Rahman <nahidacm@gmail.com>"
+    description: "Bind9 API server built with Go"
+    license: "Apache-2.0"
+    formats: [deb, rpm]
+    dependencies:
+      - bind9
+    bindir: /usr/local/bin
+    contents:
+      - src: ./config.yml
+        dst: /etc/bind9-api/config.yml
+        type: config
+      - src: ./packaging/systemd/bind9-api.service
+        dst: /lib/systemd/system/bind9-api.service
