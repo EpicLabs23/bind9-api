@@ -11,6 +11,7 @@ SYSTEMD_DIR="/etc/systemd/system"
 echo "🔍 Installing $BINARY version $VERSION..."
 
 # Download tarball
+URL="https://github.com/$REPO/releases/download/v$VERSION/${BINARY}_Linux_x86_64.tar.gz"
 URL="https://github.com/$REPO/releases/download/v$VERSION/${BINARY}_${VERSION}_linux_amd64.tar.gz"
 TMP_DIR=$(mktemp -d)
 
