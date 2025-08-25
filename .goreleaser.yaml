@@ -1,41 +1,66 @@
-project_name: bind9-api
+version: 2
 
 before:
   hooks:
+    # You may remove this if you don't use go modules.
     - go mod tidy
+    # you may remove this if you don't need go generate
+    - go generate ./...
 
 builds:
-  - id: bind9-api
-    main: ./src/server # adjust if your main.go lives elsewhere
-    binary: bind9-api
-    goos: [linux, darwin, windows]
-    goarch: [amd64, arm64]
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
 
 archives:
-  - id: release
-    format: tar.gz
+  - formats: [tar.gz]
+    # this name template makes the OS and Arch compatible with the results of `uname`.
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    # use zip for windows archives
+    format_overrides:
+      - goos: windows
+        formats: [zip]
     files:
-      - LICENSE
-      - README.md
-      - config.yml
+      - config.yaml
       - packaging/systemd/bind9-api.service
 
 nfpms:
   - id: bind9-api
     package_name: bind9-api
-    file_name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    maintainer: "Mahmudur Rahman <nahidacm@gmail.com>"
     vendor: "EpicLabs23"
     homepage: "https://github.com/EpicLabs23/bind9-api"
-    maintainer: "Mahmudur Rahman <nahidacm@gmail.com>"
-    description: "Bind9 API server built with Go"
+    description: "Bind9 API server built with Go Gin"
     license: "Apache-2.0"
     formats: [deb, rpm]
     dependencies:
       - bind9
     bindir: /usr/local/bin
     contents:
-      - src: ./config.yml
-        dst: /etc/bind9-api/config.yml
+      - src: ./config.yaml
+        dst: /etc/bind9-api/config.yaml
         type: config
       - src: ./packaging/systemd/bind9-api.service
         dst: /lib/systemd/system/bind9-api.service
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+
+release:
+  footer: >-
+
+    ---
+
+    Released by [GoReleaser](https://github.com/goreleaser/goreleaser).

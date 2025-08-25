@@ -15,5 +15,5 @@ services:
       - ./etc/bind:/etc/bind
       - ./var/cache/bind:/var/cache/bind
       - ./var/lib/bind:/var/lib/bind
-      - ./src:/bind9-api/src
+      - .:/bind9-api
     restart: always

@@ -36,3 +36,6 @@ var/lib/bind
 etc/bind/zones/db.*
 etc/bind/zones/*.zone
 tmp
+
+# Added by goreleaser init:
+dist/
