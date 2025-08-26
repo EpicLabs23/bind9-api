@@ -3,13 +3,23 @@ package main
 import (
 	"bind9-api/config"
 	"bind9-api/controllers"
+	"flag"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	// Load configuration
-	cfg, err := config.LoadConfig(".")
+	flagConfig := flag.String("config", "", "Path to the configuration file")
+	flag.Parse()
+	var cfg *config.Config
+	var err error
+	// Load configuration from specified path if provided
+	if *flagConfig != "" {
+		cfg, err = config.LoadConfig(*flagConfig)
+	} else {
+		cfg, err = config.LoadConfig(".")
+	}
+
 	if err != nil {
 		panic(err)
 	}

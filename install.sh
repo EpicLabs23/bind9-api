@@ -49,7 +49,7 @@ systemctl daemon-reload
 systemctl enable "$BINARY.service"
 systemctl restart "$BINARY.service"
 
-echo "✅ Installation complete. Service status:"
+echo "✅ Installation complete. Service should be running at port: 8053. Service status:"
 systemctl status "$BINARY.service" --no-pager
 
 # Cleanup
