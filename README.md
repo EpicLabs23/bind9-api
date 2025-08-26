@@ -11,6 +11,7 @@ https://api.postman.com/collections/915142-834e437b-a7fa-44b4-98f7-b4f56fa7ad34?
 Direct from binary
 
 ```bash
+sudo su
 curl -sSL https://raw.githubusercontent.com/EpicLabs23/bind9-api/refs/heads/main/install.sh | bash -s 0.1.0
 
 ```
@@ -89,7 +90,13 @@ Publish the release
 
 ```bash
 git tag v0.1.0
+# Following should fire the Github "Release" workflow
 git push origin v0.1.0
+```
+
+Manual release
+
+```bash
 goreleaser release --clean
 ```
 

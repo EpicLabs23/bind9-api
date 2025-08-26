@@ -7,6 +7,7 @@ REPO="EpicLabs23/bind9-api"
 BINARY="bind9-api"
 INSTALL_DIR="/usr/local/bin"
 SYSTEMD_DIR="/etc/systemd/system"
+CONFIG_FILE="/etc/bind9-api/config.yaml"
 
 echo "🔍 Installing $BINARY version $VERSION..."
 
@@ -23,8 +24,9 @@ tar -xzf "$TMP_DIR/$BINARY.tar.gz" -C "$TMP_DIR"
 
 # Install config file
 echo "⚙️  Installing config file"
-if [ ! -f /etc/bind9-api/config.yaml ]; then
-    cp "$TMP_DIR/config.yaml" /etc/bind9-api/config.yaml
+if [ ! -f $CONFIG_FILE ]; then
+    mkdir -p "$(dirname $CONFIG_FILE)"
+    cp "$TMP_DIR/config.yaml" $CONFIG_FILE
 else
     echo "⚠️  Config file already exists, skipping..."
 fi
