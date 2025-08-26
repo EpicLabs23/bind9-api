@@ -19,6 +19,13 @@ func main() {
 	// Initialize Gin
 	r := gin.Default()
 
+	// Authentication
+	accounts := gin.Accounts{}
+	for _, user := range cfg.ApiAccess {
+		accounts[user.Username] = user.Password
+	}
+	r.Use(gin.BasicAuth(accounts))
+
 	// Initialize controller
 	dnsController := controllers.NewDNSController(cfg)
 

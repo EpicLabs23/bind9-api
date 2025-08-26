@@ -13,6 +13,10 @@ type Config struct {
 	Server struct {
 		Port string `mapstructure:"port"`
 	} `mapstructure:"server"`
+	ApiAccess []struct {
+		Username string `mapstructure:"username"`
+		Password string `mapstructure:"password"`
+	} `mapstructure:"api_access"`
 }
 
 func LoadConfig(path string) (*Config, error) {

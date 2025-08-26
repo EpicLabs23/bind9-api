@@ -4,3 +4,8 @@ bind9:
   default_ttl: 3600
 server:
   port: "8053"
+api_access:
+  - username: "ehm"
+    password: "f9ba61a1-a501-4e11-958b-d6b5cbf01c3f"
+  - username: "anotheruser"
+    password: "aNother-secure-password"
