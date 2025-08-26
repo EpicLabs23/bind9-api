@@ -5,7 +5,7 @@ set -euo pipefail
 VERSION="$1"
 REPO="EpicLabs23/bind9-api"
 BINARY="bind9-api"
-INSTALL_DIR="/opt/$BINARY/$VERSION"
+INSTALL_DIR="/usr/local/bin"
 SYSTEMD_DIR="/etc/systemd/system"
 
 echo "🔍 Installing $BINARY version $VERSION..."
@@ -19,12 +19,19 @@ curl -sSL "$URL" -o "$TMP_DIR/$BINARY.tar.gz"
 
 # Extract
 echo "📦 Extracting..."
-mkdir -p "$INSTALL_DIR"
-tar -xzf "$TMP_DIR/$BINARY.tar.gz" -C "$INSTALL_DIR"
+tar -xzf "$TMP_DIR/$BINARY.tar.gz" -C "$TMP_DIR"
+
+# Install config file
+echo "⚙️  Installing config file"
+if [ ! -f /etc/bind9-api/config.yaml ]; then
+    cp "$TMP_DIR/config.yaml" /etc/bind9-api/config.yaml
+else
+    echo "⚠️  Config file already exists, skipping..."
+fi
 
 # Install binary
 echo "⚙️  Installing binary to $INSTALL_DIR"
-chmod 755 $INSTALL_DIR/$BINARY
+install -m 755 "$TMP_DIR/$BINARY" "$INSTALL_DIR/$BINARY"
 
 # Install systemd service
 if [ -f "$TMP_DIR/packaging/systemd/$BINARY.service" ]; then
@@ -42,3 +49,6 @@ systemctl restart "$BINARY.service"
 
 echo "✅ Installation complete. Service status:"
 systemctl status "$BINARY.service" --no-pager
+
+# Cleanup
+rm -rf "$TMP_DIR"

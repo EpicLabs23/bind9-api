@@ -78,16 +78,17 @@ air
 
 ## Release
 
-1. Check if the release is ready to be published
+Check if the release is ready to be published
 
 ```bash
 git tag v0.1.0
 goreleaser release --snapshot --clean --snapshot-name latest
 ```
 
-2. Publish the release
+Publish the release
 
 ```bash
+git tag v0.1.0
 git push origin v0.1.0
 goreleaser release --clean
 ```
