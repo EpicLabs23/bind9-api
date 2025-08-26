@@ -9,17 +9,9 @@ import (
 )
 
 func main() {
-	flagConfig := flag.String("config", "", "Path to the configuration file")
+	flagConfig := flag.String("config", ".", "Path to the configuration file")
 	flag.Parse()
-	var cfg *config.Config
-	var err error
-	// Load configuration from specified path if provided
-	if *flagConfig != "" {
-		cfg, err = config.LoadConfig(*flagConfig)
-	} else {
-		cfg, err = config.LoadConfig(".")
-	}
-
+	cfg, err := config.LoadConfig(*flagConfig)
 	if err != nil {
 		panic(err)
 	}
