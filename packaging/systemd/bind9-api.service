@@ -3,7 +3,7 @@ Description=Bind9 API Service
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/bind9-api --config /etc/bind9-api/config.yml
+ExecStart=/usr/local/bin/bind9-api --config /etc/bind9-api/config.yaml
 Restart=always
 RestartSec=5
 User=nobody

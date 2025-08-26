@@ -83,7 +83,7 @@ Check if the release is ready to be published
 
 ```bash
 git tag v0.1.0
-goreleaser release --snapshot --clean --snapshot-name latest
+goreleaser release --snapshot --clean
 ```
 
 Publish the release
