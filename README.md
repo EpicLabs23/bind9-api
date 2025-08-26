@@ -47,6 +47,14 @@ sudo systemctl enable bind9-api
 sudo systemctl start bind9-api
 ```
 
+## Configure
+
+Update the config file in `/etc/bind9-api/config.yml` and restart the service
+
+You must update `username` and `password` in the config file
+
+And use these credentials for Basic Auth
+
 ## Devlopment Environment Setup
 
 1. Clone the repository
