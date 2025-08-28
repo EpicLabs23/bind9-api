@@ -254,6 +254,12 @@ func WriteZoneFile(zone models.Zone, conf *config.Config) error {
 		return err
 	}
 
+	// Clear the file content
+	if err := file.Truncate(0); err != nil {
+		fmt.Print("Error truncating zone file:", err)
+		return err
+	}
+
 	// Write $ORIGIN and $TTL
 	if origin != "" {
 		_, _ = fmt.Fprintf(file, "$ORIGIN %s.\n", strings.TrimSuffix(origin, "."))
