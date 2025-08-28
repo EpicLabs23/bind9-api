@@ -211,6 +211,19 @@ func (dc *DNSController) AddRecord(c *gin.Context) {
 		})
 		return
 	}
+	//Check for duplicate
+	for _, r := range parsedZone {
+		if !strings.HasSuffix(record.Name, ".") {
+			record.Name += "."
+		}
+		if r.Name == record.Name && r.Type == record.Type {
+			c.JSON(http.StatusConflict, models.Response{
+				Success: false,
+				Error:   "Duplicate record",
+			})
+			return
+		}
+	}
 	parsedZone = append(parsedZone, record)
 	updatedZone := models.Zone{
 		Name:    zoneName,
