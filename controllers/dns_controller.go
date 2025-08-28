@@ -155,7 +155,15 @@ func (dc *DNSController) DeleteZone(c *gin.Context) {
 	}
 
 	// Reload Bind9 to apply changes
-	_, stdOut, err := utils.CheckCofigSyntax(dc.Config.Bind9.ConfigFile)
+	_, _, err := utils.CheckCofigSyntax(dc.Config.Bind9.ConfigFile)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, models.Response{
+			Success: false,
+			Error:   "Config syntax error: " + err.Error(),
+		})
+		return
+	}
+	_, stdOut, err := utils.ReloadBind9()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.Response{
 			Success: false,
