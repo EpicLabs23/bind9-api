@@ -79,7 +79,7 @@ docker compose up -d
 
 ```bash
 go mod tidy
-docker exec -it bind9-api bash
+docker exec -it bind9-api-dev bash
 cd /bind9-api
 air
 ```

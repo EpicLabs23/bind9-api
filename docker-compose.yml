@@ -1,9 +1,9 @@
 services:
-  bind9-api:
+  bind9-api-dev:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: bind9-api
+    container_name: bind9-api-dev
     ports:
       - "53:53/udp"
       - "53:53/tcp"
