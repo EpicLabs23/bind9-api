@@ -75,13 +75,12 @@ cd bind9-api
 docker compose up -d
 ```
 
-4. Start Dev aapplication
+4. Start Dev application
 
 ```bash
-cd src
 go mod tidy
 docker exec -it bind9-api bash
-cd /bind9-api/src
+cd /bind9-api
 air
 ```
 

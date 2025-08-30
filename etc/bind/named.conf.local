@@ -23,3 +23,11 @@ zone "kindly.com" {
     type master;
     file "/etc/bind/zones/kindly.com.zone";
 };
+zone "mudi.com" {
+    type master;
+    file "/etc/bind/zones/mudi.com.zone";
+};
+zone "ijhar.com" {
+    type master;
+    file "/etc/bind/zones/ijhar.com.zone";
+};

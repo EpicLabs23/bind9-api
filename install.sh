@@ -35,19 +35,23 @@ fi
 echo "⚙️  Installing binary to $INSTALL_DIR"
 install -m 755 "$TMP_DIR/$BINARY" "$INSTALL_DIR/$BINARY"
 
-# Install systemd service
-if [ -f "$TMP_DIR/packaging/systemd/$BINARY.service" ]; then
-    echo "⚙️  Installing systemd service"
-    cp "$TMP_DIR/packaging/systemd/$BINARY.service" "$SYSTEMD_DIR/"
+if [ "$2" = "no-systemd" ]; then
+    echo "⚠️  Skipping systemd service installation and service restart"
 else
-    echo "⚠️  No systemd service file found in packaging/systemd/"
-fi
+    # Install systemd service
+    if [ -f "$TMP_DIR/packaging/systemd/$BINARY.service" ]; then
+        echo "⚙️  Installing systemd service"
+        cp "$TMP_DIR/packaging/systemd/$BINARY.service" "$SYSTEMD_DIR/"
+    else
+        echo "⚠️  No systemd service file found in packaging/systemd/"
+    fi
 
-# Reload and restart systemd service
-echo "🔄 Reloading systemd"
-systemctl daemon-reload
-systemctl enable "$BINARY.service"
-systemctl restart "$BINARY.service"
+    # Reload and restart systemd service
+    echo "🔄 Reloading systemd"
+    systemctl daemon-reload
+    systemctl enable "$BINARY.service"
+    systemctl restart "$BINARY.service"
+fi
 
 echo "✅ Installation complete. Service should be running at port: 8053. Service status:"
 systemctl status "$BINARY.service" --no-pager
