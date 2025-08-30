@@ -51,10 +51,10 @@ else
     systemctl daemon-reload
     systemctl enable "$BINARY.service"
     systemctl restart "$BINARY.service"
+    systemctl status "$BINARY.service" --no-pager
 fi
 
 echo "✅ Installation complete. Service should be running at port: 8053. Service status:"
-systemctl status "$BINARY.service" --no-pager
 
 # Cleanup
 rm -rf "$TMP_DIR"
