@@ -4,7 +4,7 @@ REST API with Go to manage BIND9 DNS Server from anywhere
 
 ## Postman Collection:
 
-[https://api.postman.com/collections/915142-834e437b-a7fa-44b4-98f7-b4f56fa7ad34?access_key=PMAT-01K3DZ1BG19Q9VQZQMSRMX4ZSQ](https://github.com/EpicLabs23/bind9-api/blob/main/bind9-api.postman_collection.json)
+https://raw.githubusercontent.com/EpicLabs23/bind9-api/refs/heads/main/bind9-api.postman_collection.json
 
 ## Installation
 
