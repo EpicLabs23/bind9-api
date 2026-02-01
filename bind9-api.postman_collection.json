@@ -1,0 +1,289 @@
+{
+  "info": {
+    "_postman_id": "d1b7221f-2333-42ed-8e3a-a24328bc432c",
+    "name": "bind9-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "915142",
+    "_collection_link": "https://go.postman.co/collection/915142-d1b7221f-2333-42ed-8e3a-a24328bc432c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "create-zone",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"kindly.com\",\n    \"ttl\": 3600,\n    \"records\": [\n        {\n            \"name\": \"kindly.com.\",\n            \"type\": \"SOA\",\n            \"class\": \"IN\",\n            \"ttl\": 3600,\n            \"fields\": {\n                \"expire\": \"604800\",\n                \"mbox\": \"admin.kindly.com.\",\n                \"minttl\": \"86400\",\n                \"ns\": \"ns1.kindly.com.\",\n                \"refresh\": \"3600\",\n                \"retry\": \"1800\",\n                \"serial\": \"2023081801\"\n            }\n        },\n        {\n            \"name\": \"kindly.com.\",\n            \"type\": \"NS\",\n            \"class\": \"IN\",\n            \"ttl\": 3600,\n            \"fields\": {\n                \"ns\": \"ns1.kindly.com.\"\n            }\n        },\n        {\n            \"name\": \"kindly.com.\",\n            \"type\": \"NS\",\n            \"class\": \"IN\",\n            \"ttl\": 3600,\n            \"fields\": {\n                \"ns\": \"ns2.kindly.com.\"\n            }\n        },\n        {\n            \"name\": \"ns1.kindly.com.\",\n            \"type\": \"A\",\n            \"class\": \"IN\",\n            \"ttl\": 3600,\n            \"fields\": {\n                \"address\": \"127.0.0.1\"\n            }\n        },\n        {\n            \"name\": \"ns2.kindly.com.\",\n            \"type\": \"A\",\n            \"class\": \"IN\",\n            \"ttl\": 3600,\n            \"fields\": {\n                \"address\": \"127.0.0.1\"\n            }\n        },\n        {\n            \"name\": \"sub.kindly.com.\",\n            \"type\": \"A\",\n            \"class\": \"IN\",\n            \"ttl\": 3600,\n            \"fields\": {\n                \"address\": \"127.0.0.1\"\n            }\n        },\n        {\n            \"name\": \"tizara.kindly.com.\",\n            \"type\": \"A\",\n            \"class\": \"IN\",\n            \"ttl\": 3600,\n            \"fields\": {\n                \"address\": \"127.0.0.1\"\n            }\n        },\n        {\n            \"name\": \"bori\",\n            \"type\": \"A\",\n            \"class\": \"IN\",\n            \"ttl\": 3600,\n            \"fields\": {\n                \"address\": \"127.0.0.1\"\n            }\n        },\n        {\n            \"name\": \"www.kindly.com.\",\n            \"type\": \"A\",\n            \"class\": \"IN\",\n            \"ttl\": 3600,\n            \"fields\": {\n                \"address\": \"192.168.1.2\"\n            }\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/zones",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "zones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add-record",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"volavalai\",\n    \"type\": \"A\",\n    \"class\": \"IN\",\n    \"ttl\": 3600,\n    \"fields\": {\n        \"address\": \"127.0.0.1\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/zones/:zone/records",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "zones",
+            ":zone",
+            "records"
+          ],
+          "variable": [
+            {
+              "key": "zone",
+              "value": "ijhar.com"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update-zone",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "zone_text",
+              "value": "$ORIGIN farida.com.\n$TTL 3600\n@    IN    SOA    ns1.farida.com. admin.farida.com. (\n            2023081801 ; Serial\n            3600       ; Refresh\n            1800       ; Retry\n            604800     ; Expire\n            86400      ; Minimum TTL\n)\n\n; Name servers\n@    IN    NS    ns1.farida.com.\n@    IN    NS    ns2.farida.com.\n\n; A records\nns1    IN    A    127.0.0.1\nns2    IN    A    127.0.0.1\n\n; Additional records\n\n\nsub    IN    A    127.0.0.2\n\nwww    IN    A   ",
+              "type": "text",
+              "uuid": "fad93073-1cf3-49e4-bbc5-8924b42dac1a"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/zones/:zone",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "zones",
+            ":zone"
+          ],
+          "variable": [
+            {
+              "key": "zone",
+              "value": "farida.com"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete-zone",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/zones/:zone",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "zones",
+            ":zone"
+          ],
+          "variable": [
+            {
+              "key": "zone",
+              "value": "kindly.com"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete-record",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/zones/:zone/records/:record/:type",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "zones",
+            ":zone",
+            "records",
+            ":record",
+            ":type"
+          ],
+          "variable": [
+            {
+              "key": "zone",
+              "value": "ijhar.com"
+            },
+            {
+              "key": "record",
+              "value": "fulki"
+            },
+            {
+              "key": "type",
+              "value": "A"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-zone",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/zones/:zone",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "zones",
+            ":zone"
+          ],
+          "variable": [
+            {
+              "key": "zone",
+              "value": "farida.com"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "list-zones",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/zones",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "zones"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{Username}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{Password}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8053"
+    },
+    {
+      "key": "Password",
+      "value": "f9ba61a1-a501-4e11-958b-d6b5cbf01c3f"
+    },
+    {
+      "key": "Username",
+      "value": "ehm"
+    }
+  ]
+}
